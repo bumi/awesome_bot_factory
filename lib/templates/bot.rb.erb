@@ -1,0 +1,12 @@
+require "awesome_bot_factory"
+class <%= class_name %> < AwesomeBotFactory
+  
+  matches :word, :name, :action
+  
+  register :name => <%= name %>, :description => "", :regex => ""
+  
+  def reply
+    { :type => "TextMessage", :body => "hello world" }
+  end
+  
+end

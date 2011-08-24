@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+if ARGV.shift == "create"
+  name = ARGV.first
+else
+
+end
