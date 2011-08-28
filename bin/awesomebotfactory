@@ -36,7 +36,8 @@ class AwsomeBotFactoryRunner < Thor
   desc "create name", "Creates a new application skeleton for a new awesome bot factory skill"
   def create(name)
     directory = bot_directory? ? "." : name.underscore
-    say "creating #{name} in #{directory}", :green
+    say "Welcome to the AWESOME BOT FACTORY!", :green
+    say "setting up your laboratory for #{name}", :green
     @skill_class_name = name.classify
     @skill_file_name = name.underscore
     template('skill.rb.erb', "#{directory}/#{skill_file_name}.rb")
@@ -61,8 +62,9 @@ class AwsomeBotFactoryRunner < Thor
         run "git commit -a -m 'hello #{name}'"
       end  
     end
-    say "#{name} created, happy hacking", :green
+    say "#{skill_author}, #{name} was created, happy hacking!", :green
   end
+  
   
   private 
   
