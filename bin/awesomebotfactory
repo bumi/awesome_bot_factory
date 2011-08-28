@@ -38,7 +38,7 @@ class AwsomeBotFactoryRunner < Thor
     directory = bot_directory? ? "." : name.underscore
     say "Welcome to the AWESOME BOT FACTORY!", :green
     say "setting up your laboratory for #{name}", :green
-    @skill_class_name = name.classify
+    @skill_class_name = name.camelize
     @skill_file_name = name.underscore
     template('skill.rb.erb', "#{directory}/#{skill_file_name}.rb")
     if bot_directory?
