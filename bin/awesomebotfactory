@@ -53,6 +53,7 @@ class AwsomeBotFactoryRunner < Thor
     else
       template('config.ru.erb', "#{directory}/config.ru")
       template('Gemfile.erb', "#{directory}/Gemfile")
+      template('readme.md.erb', "#{directory}/README.md")
       inside(directory) do
         run 'bundle install', :capture => true
         run 'git init'
