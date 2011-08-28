@@ -10,7 +10,7 @@ class AwsomeBotFactoryRunner < Thor
   
   desc "deploy", "deploys the application to heroku"
   def deploy(name=nil)
-    @skill_app_name ||= "abf-#{Dir.getwd.split("/").last}"
+    @skill_app_name = name || "abf-#{Dir.getwd.split("/").last}"
     if !bot_directory?
       say "no bot found. please make sure to run this command in your application directory", :red
       return
