@@ -74,6 +74,10 @@ class AwsomeBotFactoryRunner < Thor
     @skill_class_name
   end
   
+  def skill_author
+    @skill_author ||= ENV["USER"]
+  end
+  
   def bot_directory?
     !Dir["*.rb"].find{|f| File.read(f) =~ /AwesomeBotFactory::Skill/ }.nil?
   end

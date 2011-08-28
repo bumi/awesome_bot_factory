@@ -4,11 +4,12 @@ class <%= skill_class_name %> < AwesomeBotFactory::Skill
   configure do |c|
     c.name = "<%= skill_class_name %>"
     c.details = ""
-    c.url = ""
-    c.regex = ""
+    c.author = "<%= skill_author %>"
+    c.url = "http://abf-<%= skill_file_name %>.herokuapp.com/<%= skill_file_name %>"
+    c.regex = "<%= skill_file_name %>:(.+)"
   end
   
-  matches :your, :order, :of, :matches
+  matches :command, :in_your, :order, :of, :matches
   
   def reply
     { :type => "TextMessage", :body => "hello world" }
