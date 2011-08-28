@@ -10,7 +10,7 @@ class AwsomeBotFactoryRunner < Thor
   
   desc "deploy", "deploys the application to heroku"
   def deploy(name=nil)
-    name ||= "abf-#{Dir.getwd.split("/").last}"
+    @skill_app_name ||= "abf-#{Dir.getwd.split("/").last}"
     if !bot_directory?
       say "no bot found. please make sure to run this command in your application directory", :red
       return
@@ -28,7 +28,7 @@ class AwsomeBotFactoryRunner < Thor
     heroku_initialized = run('git remote') =~ /heroku/
     if !heroku_initialized
       say "creating a new heroku application", :green
-      run "heroku apps:create #{name} --stack cedar"
+      run "heroku apps:create #{skill_app_name} --stack cedar"
     end
     run "git push heroku master"
   end
@@ -78,6 +78,10 @@ class AwsomeBotFactoryRunner < Thor
   
   def skill_author
     @skill_author ||= ENV["USER"]
+  end
+  
+  def skill_app_name
+    (@skill_app_name || @skill_file_name).to_s.gsub("_","-").downcase
   end
   
   def bot_directory?
