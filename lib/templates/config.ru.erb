@@ -1,6 +1,6 @@
-require File.join(File.dirname(__FILE__), "<%= file_name %>.rb")
+require File.join(File.dirname(__FILE__), "<%= skill_file_name %>.rb")
 
 use Rack::CommonLogger
-map '/<%= file_name %>' do
-  run <%= class_name %>
+map '/<%= skill_file_name %>' do
+  run <%= skill_class_name %>
 end

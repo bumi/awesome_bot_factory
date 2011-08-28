@@ -1,7 +1,81 @@
 #!/usr/bin/env ruby
 
-if ARGV.shift == "create"
-  name = ARGV.first
-else
+require "rubygems"
+require "thor"
+require 'active_support/inflector'
 
+class AwsomeBotFactoryRunner < Thor
+  include Thor::Actions
+  source_root File.expand_path("../lib/templates", File.dirname(__FILE__))
+  
+  desc "deploy", "deploys the application to heroku"
+  def deploy(name=nil)
+    name ||= "abf-#{Dir.getwd.split("/").last}"
+    if !bot_directory?
+      say "no bot found. please make sure to run this command in your application directory", :red
+      return
+    end
+    
+    run "bundle install", :capture => true
+    
+    git_dirty = !(run("git status", :capture => true) =~ /nothing to commit/)
+    if git_dirty
+      run "git add .", :capture => true
+      run "git commit -a -m 'deployment'", :capture => true
+    end
+    
+    remotes = run "git remote", :capture => true
+    heroku_initialized = run('git remote') =~ /heroku/
+    if !heroku_initialized
+      say "creating a new heroku application", :green
+      run "heroku apps:create #{name} --stack cedar"
+    end
+    run "git push heroku master"
+  end
+  
+  desc "create name", "Creates a new application skeleton for a new awesome bot factory skill"
+  def create(name)
+    directory = bot_directory? ? "." : name.underscore
+    say "creating #{name} in #{directory}", :green
+    @skill_class_name = name.classify
+    @skill_file_name = name.underscore
+    template('skill.rb.erb', "#{directory}/#{skill_file_name}.rb")
+    if bot_directory?
+      prepend_file("#{directory}/config.ru", "require File.join(File.dirname(__FILE__), '#{skill_file_name}.rb')")
+      append_file("#{directory}/config.ru", %Q{
+          map '/#{skill_file_name}' do
+            run #{skill_class_name}
+          end
+        });
+      inside(directory) do
+        run "git commit -a -m 'hello #{name}'"
+      end
+    else
+      template('config.ru.erb', "#{directory}/config.ru")
+      template('Gemfile.erb', "#{directory}/Gemfile")
+      inside(directory) do
+        run 'bundle install', :capture => true
+        run 'git init'
+        run 'git add .'
+        run "git commit -a -m 'hello #{name}'"
+      end  
+    end
+    say "#{name} created, happy hacking", :green
+  end
+  
+  private 
+  
+  def skill_file_name
+    @skill_file_name
+  end
+  
+  def skill_class_name
+    @skill_class_name
+  end
+  
+  def bot_directory?
+    !Dir["*.rb"].find{|f| File.read(f) =~ /AwesomeBotFactory::Skill/ }.nil?
+  end
 end
+
+AwsomeBotFactoryRunner.start

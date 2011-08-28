@@ -1,6 +1,9 @@
 module AwesomeBotFactory
   class Skill
-
+    include ActiveSupport::Configurable
+    
+    attr_accessor :message
+    
     def self.matches(*matches)
       matches.each_with_index do |name,index|
         define_method name do 
@@ -8,25 +11,20 @@ module AwesomeBotFactory
         end
       end
     end
-  
-    def self.register(details)
-      Net::HTTP.post_form(URI.parse('http://awesomebotfactory.com/skills'), details)
-    end
-  
+    
     def self.call(env)
-      bot = self.new(env["rack.input"].read)
-      [200, {"Content-Type" => "application/json"}, [bot.reply.to_json]]
+      message = JSON.parse(env["rack.input"].read)
+      [200, {"Content-Type" => "application/json"}, [ self.new(message).reply.to_json] ]
     end
   
-    def initialize(body)
-      body = body.read if body.respond_to?(:read)
-      self.message = JSON.parse(body)
+    def initialize(campfire_message)
+      self.message = campfire_message
     end
   
     def method_missing(name, *args)
       return self.message[name.to_s] if self.message.key?(name.to_s)
       return self.message[name.to_sym] if self.message.key?(name.to_sym)
-      nil
+      super(name,*args)
     end
   end
 end

@@ -1,0 +1,17 @@
+require "awesome_bot_factory"
+class <%= skill_class_name %> < AwesomeBotFactory::Skill
+  
+  configure do |c|
+    c.name = "<%= skill_class_name %>"
+    c.details = ""
+    c.url = ""
+    c.regex = ""
+  end
+  
+  matches :your, :order, :of, :matches
+  
+  def reply
+    { :type => "TextMessage", :body => "hello world" }
+  end
+  
+end
