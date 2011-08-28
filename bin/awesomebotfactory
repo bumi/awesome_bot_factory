@@ -25,7 +25,7 @@ class AwsomeBotFactoryRunner < Thor
     end
     
     remotes = run "git remote", :capture => true
-    heroku_initialized = run('git remote') =~ /heroku/
+    heroku_initialized = remotes =~ /heroku/
     if !heroku_initialized
       say "creating a new heroku application", :green
       run "heroku apps:create #{skill_app_name} --stack cedar"
