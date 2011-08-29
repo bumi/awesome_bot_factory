@@ -53,6 +53,7 @@ class AwsomeBotFactoryRunner < Thor
       end
     else
       template('config.ru.erb', "#{directory}/config.ru")
+      template('Procfile.erb', "#{directory}/Procfile")
       template('Gemfile.erb', "#{directory}/Gemfile")
       template('readme.md.erb', "#{directory}/README.md")
       inside(directory) do
