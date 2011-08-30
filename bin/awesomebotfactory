@@ -42,11 +42,11 @@ class AwsomeBotFactoryRunner < Thor
     @skill_file_name = name.underscore
     template('skill.rb.erb', "#{directory}/#{skill_file_name}.rb")
     if bot_directory?
-      prepend_file("#{directory}/config.ru", "require File.join(File.dirname(__FILE__), '#{skill_file_name}.rb')")
+      insert_into_file("#{directory}/config.ru", "\nrequire File.join(File.dirname(__FILE__), '#{skill_file_name}.rb')", :after => "Bundler.require")
       append_file("#{directory}/config.ru", %Q{
-          map '/#{skill_file_name}' do
-            run #{skill_class_name}
-          end
+map '/#{skill_file_name}' do
+  run #{skill_class_name}
+end
         });
       inside(directory) do
         run "git commit -a -m 'hello #{name}'"
