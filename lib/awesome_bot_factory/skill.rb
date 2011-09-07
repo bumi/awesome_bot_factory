@@ -23,11 +23,14 @@ module AwesomeBotFactory
       return nil unless index
       self.message["match"][index+1]
     end
+    def attribute_defined?(attr)
+      !@@matches.index(attr).nil?
+    end
     
     def method_missing(name, *args)
       return self.message[name.to_s] if self.message.key?(name.to_s)
       return self.message[name.to_sym] if self.message.key?(name.to_sym)
-      return self.read_attribute(name) if self.read_attribute(name)
+      return self.read_attribute(name) if self.attribute_defined?(name)
       super(name,*args)
     end
   end
