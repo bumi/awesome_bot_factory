@@ -9,7 +9,13 @@ task :build do
 end
 
 task :install => :build do
-  system "sudo gem install awesome_bot_factory-#{AwesomeBotFactory::VERSION}.gem"
+  system "gem install awesome_bot_factory-#{AwesomeBotFactory::VERSION}.gem"
+end
+
+task :release => :build do
+  system "git tag -a #{AwesomeBotFactory::VERSION} -m 'Tagging #{AwesomeBotFactory::VERSION}'"
+  system "git push --tags"
+  system "gem push awesome_bot_factory-#{AwesomeBotFactory::VERSION}.gem"
 end
 
 RSpec::Core::RakeTask.new(:spec) do |spec|
