@@ -68,12 +68,21 @@ end
     say "#{skill_author}, #{name} was created, happy hacking!", :green
   end
   
-  desc "test", "send a test payload to your local application and see what it returns"
-  def test(name)
-    name.underscore!
-    #Net::HTTP.post_form(URI.parse("http://localhost:9292/#{b}"),
-    #                              {'q' => 'ruby', 'max' => '50'})
-    #    puts res.body
+  desc "request", "send a test payload to your local application and see what it returns"
+  def request(name, matches="")
+    require "net/http"
+    require "awesome_bot_factory"
+    require "json"
+    
+    attributes = JSON.parse(matches) rescue {"match" => matches.split(",")}
+    name = name.underscore
+    
+    url = URI.parse("http://localhost:9292/#{name}")
+    request = Net::HTTP::Post.new(url.path)
+    request.body = AwesomeBotFactory::ExamplePayload.new(attributes).as_json
+    response = Net::HTTP.new(url.host, url.port).start {|http| http.request(request) }
+    
+    say response.body
   end
   
   private 
