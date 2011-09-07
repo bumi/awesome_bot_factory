@@ -2,10 +2,11 @@ class <%= skill_class_name %> < AwesomeBotFactory::Skill
   
   configure do |c|
     c.name = "<%= skill_class_name %>"
-    c.details = ""
+    c.description = ""
     c.author = "<%= skill_author %>"
     c.url = "http://abf-<%= skill_app_name %>.herokuapp.com/<%= skill_file_name %>"
     c.regex = "<%= skill_file_name %>:(.+)"
+    c.help = ""
   end
   
   matches :command, :in_your, :order, :of, :matches
