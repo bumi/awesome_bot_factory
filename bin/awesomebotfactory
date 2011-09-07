@@ -3,7 +3,7 @@
 require "rubygems"
 require "thor"
 require 'active_support/inflector'
-
+require 'awesome_bot_factory'
 class AwsomeBotFactoryRunner < Thor
   include Thor::Actions
   source_root File.expand_path("../lib/templates", File.dirname(__FILE__))

@@ -2,12 +2,12 @@ source "http://rubygems.org"
 
 gem "thin"
 gem "rack"
-gem "awesome_bot_factory", :git => "git://github.com/bumi/awesome_bot_factory.git"
+gem "awesome_bot_factory", '~><%= AwesomeBotFactory::VERSION %>'
 
 group :development do
   gem "heroku"
 end
 group :test do
-  gem "rspec"
-  gem "rack-test", :require => "rack/test"
+  gem "rspec", '~>2.6.0'
+  gem "rack-test", '~>0.6.1', :require => "rack/test"
 end
