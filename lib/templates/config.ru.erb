@@ -1,5 +1,5 @@
 require "bundler/setup"
-Bundler.require
+Bundler.require(:default, :production)
 require File.join(File.dirname(__FILE__), "<%= skill_file_name %>.rb")
 
 use Rack::CommonLogger
