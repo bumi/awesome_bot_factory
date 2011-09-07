@@ -3,8 +3,6 @@ Bundler.require(:default, :test)
 
 require File.expand_path("../<%= skill_file_name %>.rb", File.dirname(__FILE__))
 
-require 'webmock/rspec'
-
 RSpec.configure do |config|
   config.include Rack::Test::Methods
 end

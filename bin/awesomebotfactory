@@ -56,7 +56,7 @@ end
       template('Procfile.erb', "#{directory}/Procfile")
       template('Gemfile.erb', "#{directory}/Gemfile")
       template('readme.md.erb', "#{directory}/README.md")
-      template('skill_spec.rb.erb', "#{directory}/spec/skill_file_name_spec.rb")
+      template('skill_spec.rb.erb', "#{directory}/spec/#{skill_file_name}_spec.rb")
       template('spec_helper.rb.erb', "#{directory}/spec/spec_helper.rb")
       inside(directory) do
         run 'bundle install', :capture => true

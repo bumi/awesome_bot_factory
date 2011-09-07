@@ -9,7 +9,7 @@ class <%= skill_class_name %> < AwesomeBotFactory::Skill
     c.help = ""
   end
   
-  matches :command, :in_your, :order, :of, :matches
+  matches :matches, :of, :your, :regex
   
   def reply
     { :type => "TextMessage", :body => "hello world" }

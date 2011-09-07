@@ -7,3 +7,7 @@ gem "awesome_bot_factory", :git => "git://github.com/bumi/awesome_bot_factory.gi
 group :development do
   gem "heroku"
 end
+group :test do
+  gem "rspec"
+  gem "rack-test", :require => "rack/test"
+end

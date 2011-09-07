@@ -2,16 +2,16 @@ require "spec_helper"
 
 describe <%= skill_class_name %> do
   
-  subject { AirportCode.new(AwesomeBotFactory::ExamplePayload.new("match" => ["bot:dance around the world", "dance", "around", "the world"])) }
+  subject { <%= skill_class_name %>.new(AwesomeBotFactory::ExamplePayload.new("match" => ["bot:dance around the world", "dance", "around", "the", "world"])) }
   
-  it { should have_matches_for(:command, :of, :matches) }
-  its(:command) { should eql("dance") }
+  it { should have_matches_for(:matches, :of, :your, :regex) }
+  its(:matches) { should eql("dance") }
   its(:reply) { should eql({ :type => "TextMessage", :body => "hello world" })}
   
   describe "as a rack application" do
-    let(:app) { AirportCode }
+    let(:app) { <%= skill_class_name %> }
     before do
-      post "/<%= skill_file_name %>", {}, :input => <%= skill_file_name %>_payload.to_json
+      post "/<%= skill_file_name %>", {}, :input => AwesomeBotFactory::ExamplePayload.new("match" => ["bot:dance around the world", "dance", "around", "the", "world"]).as_json
     end
     let(:json_body) { JSON.parse(last_response.body) }
 
