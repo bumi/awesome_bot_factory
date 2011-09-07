@@ -15,14 +15,18 @@ module AwesomeBotFactory
   
     def initialize(campfire_message={})
       self.message = campfire_message
-      self.message["match"] ||= {} # let's just make sure we have an hash there and don't break if it is in any case empty
+      self.message["match"] ||= [] # let's just make sure we have an hash there and don't break if it is in any case empty
     end
     
     def read_attribute(attr)
       index = @@matches.index(attr.to_sym)
-      return nil unless index
-      self.message["match"][index+1]
+      if index
+        self.message["match"][index+1]
+      else
+        self.message[attr.to_s] || self.message[attr.to_sym]
+      end
     end
+    
     def attribute_defined?(attr)
       !@@matches.index(attr).nil?
     end
