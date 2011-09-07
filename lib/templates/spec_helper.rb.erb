@@ -9,6 +9,6 @@ end
 
 RSpec::Matchers.define :have_matches_for do |*expected|
   match do |actual|
-    expected.all? { |e| actual.respond_to?(e) }
+    expected.all? { |e| actual.class.class_variable_get("@@matches").include?(e) }
   end
 end
