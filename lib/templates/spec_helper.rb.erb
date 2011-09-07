@@ -1,0 +1,16 @@
+require "bundler/setup"
+Bundler.require(:default, :test)
+
+require File.expand_path("../<%= skill_file_name %>.rb", File.dirname(__FILE__))
+
+require 'webmock/rspec'
+
+RSpec.configure do |config|
+  config.include Rack::Test::Methods
+end
+
+RSpec::Matchers.define :have_matches_for do |*expected|
+  match do |actual|
+    expected.all? { |e| actual.respond_to?(e) }
+  end
+end
