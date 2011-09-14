@@ -1,13 +1,13 @@
 require "spec_helper"
 
 describe <%= skill_class_name %> do
-  
+
   subject { <%= skill_class_name %>.new(AwesomeBotFactory::ExamplePayload.new("match" => ["bot:dance around the world", "dance", "around", "the", "world"])) }
-  
+
   it { should have_matches_for(:matches, :of, :your, :regex) }
   its(:matches) { should eql("dance") }
   its(:reply) { should eql({ :type => "TextMessage", :body => "hello world" })}
-  
+
   describe "as a rack application" do
     let(:app) { <%= skill_class_name %> }
     before do

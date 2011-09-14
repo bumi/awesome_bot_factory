@@ -1,5 +1,5 @@
 class <%= skill_class_name %> < AwesomeBotFactory::Skill
-  
+
   configure do |c|
     c.name = "<%= skill_class_name %>"
     c.description = ""
@@ -8,11 +8,11 @@ class <%= skill_class_name %> < AwesomeBotFactory::Skill
     c.regex = "<%= skill_file_name %>:(.+)"
     c.help = ""
   end
-  
+
   matches :matches, :of, :your, :regex
-  
+
   def reply
     { :type => "TextMessage", :body => "hello world" }
   end
-  
+
 end
