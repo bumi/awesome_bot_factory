@@ -15,7 +15,7 @@ describe AwesomeBotFactory::Skill do
       TestSkill.call({"rack.input" => StringIO.new("body")})
     }
 
-    its([0]) { should eql(20) }
+    its([0]) { should eql(200) }
     its([1]) { should eql({"Content-Type" => "application/json"}) }
     its([2]) { should eql(['{"body":"response"}']) }
 
