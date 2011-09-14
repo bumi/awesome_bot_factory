@@ -1,5 +1,4 @@
-# AWESOMEBOTFACTORY! - Super charge your campfire chatrooms with a whole
-catalog of awesome bots!
+# AWESOMEBOTFACTORY! - Super charge your campfire chatrooms with a whole catalog of awesome bots!
 
 
 ## What's the Awesomebotfactory?
@@ -32,9 +31,9 @@ Developing new skills for your campfire bot is super easy.
 
 ### create
 
-gem install awesome_bot_factory
+    gem install awesome_bot_factory
 
-awesomebotfactory create DemoSkill
+    awesomebotfactory create DemoSkill
 
 this creates a new directory demo_skill with all the needed files.
 open the directory and adjust the demo_skill.rb for your liking. All is
@@ -48,7 +47,7 @@ you can deploy anywhere you want but free deployment to heroku is
 included.
 so just do
 
-awesomebotfactory deploy
+    awesomebotfactory deploy
 
 This creates an application on heroku, prepares your git repository if needed and pushes the code to heroku. In our case the application will be available on http://abf-demo-skill.herokuapp.com/demo_skill
 
