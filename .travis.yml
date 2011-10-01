@@ -2,4 +2,4 @@ rvm:
   - 1.8.7
   - 1.9.2
 notifications:
-  webhooks: http://www.postbin.org/1jgp4x7
+  webhooks: http://awesome-travis-bot.heroku.com/travis
